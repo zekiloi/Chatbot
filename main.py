@@ -11,7 +11,7 @@ import json
 from glob import glob
 import pytz
 from datetime import datetime
-from config import TOKEN, ADMIN, OWNER, CHANNEL, GROUP, PROJECT_NAME
+from config import TOKEN, ADMIN
 
 token = TOKEN
 bot = amanobot.Bot(token)
@@ -28,7 +28,7 @@ def saveConfig(data):
 
 if __name__ == '__main__':
 	s = time.time()
-	print(f'[#] Buatan\n[i] Created by @{OWNER}\n')
+	print(f'[#] Buatan\n[i] Created by zeki\n')
 	print('[#] mengecek config...')
 	if not os.path.isfile('app.json'):
 		print('[#] memebuat config file...')
@@ -101,13 +101,13 @@ def handle(update):
 
 		if text == "/start" or text == "/refresh":
 			if not uid in queue["occupied"]:
-				keyboard = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="ᴏᴡɴᴇʀ", url=f"https://t.me/{OWNER}"),InlineKeyboardButton(text="ɢʀᴜᴘ ᴄʜᴀᴛ", url=f"t.me/{GROUP}"),InlineKeyboardButton(text="ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/{CHANNEL}")]])
-				bot.sendMessage(uid, f"⚡️ SELAMAT DATANG DI {PROJECT_NAME} ⚡️\n\n_🇮🇩 Semoga Dapat teman atau jodoh\n🇳🇿 I hope you can make a friend or a partner\n\n💬 untuk mencari teman obrolan gunakan perintah /search_", parse_mode='MarkDown', disable_web_page_preview=True , reply_markup=keyboard)
+				keyboard = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="ᴏᴡɴᴇʀ", url=f"tg://openmessage?user_id=1434374071"),InlineKeyboardButton(text="ᴏᴡɴᴇʀ ɪɢ", url=f"https://instagram.com/zekiloi"),InlineKeyboardButton(text="ᴄʜᴀɴɴᴇʟ", url=f"https://t.me/damnstoryy")]])
+				bot.sendMessage(uid, f"Halo first_name\n\naku adalah Bot Anonymous ChatBot\n┈───────────────────┈\nsemoga dapet teman baru atau pasangan\n┈───────────────────┈\nuntuk memulai percakapan 💬 ketik /search 🔍_", parse_mode='MarkDown', disable_web_page_preview=True , reply_markup=keyboard)
 		if 'message_id' in update:
 			if not uid in queue["occupied"]:
-				if text != "/start" and text != "Pengguna👤" and text !="Next ▶️" and text != "/refresh" and text != "/help" and text != "/search" and text != "Search 🔍" and text != "MENU BOT✅" and text != "🔙 Main Menu" and text != "Info Profile 📌" and text != "Covid-19〽️"  and text != "/user":
+				if text != "/start" and text != "Pengguna👤" and text !="Next ▶️" and text != "/refresh" and text != "/help" and text != "/search" and text != "Search 🔍" and text != "MENU BOT✅" and text != "🔙 Main Menu" and text != "Info Profile 📌" and text != "/user":
 					news = ReplyKeyboardRemove()
-					bot.sendMessage(uid, "_[❗️] Maap kamu sedang tidak dalam obrolan\nSilahkan Klik /refresh atau /search pada bot_", parse_mode="MarkDown",reply_markup=news, reply_to_message_id=update['message_id'])
+					bot.sendMessage(uid, "_[❗️] Maaf kamu sedang tidak dalam obrolan\nSilahkan Klik /refresh atau /search pada bot_", parse_mode="MarkDown",reply_markup=news, reply_to_message_id=update['message_id'])
 		
 
 		if text == "/test":
@@ -152,23 +152,23 @@ def handle(update):
 		elif text == 'Search 🔍' or text == "/search":
 			if not uid in queue["occupied"]:
 				keyboard = ReplyKeyboardRemove()
-				bot.sendMessage(uid, '_Sedang mencari pasangan ngobrol kamu, Mohon tunggu sebentar..._',parse_mode='MarkDown', reply_markup=keyboard)
+				bot.sendMessage(uid, '_mencari lawan bicara..._',parse_mode='MarkDown', reply_markup=keyboard)
 				print("[SB] " + str(uid) + " Join ke obrolan")
 				queue["free"].append(uid)
 
 		elif text == '❌ Exit' or text == '/exit' and uid in queue["occupied"]:
-			print('[SB] ' + str(uid) + ' meninggalkan jodohnya ' + str(queue["occupied"][uid]))
+			print('[SB] ' + str(uid) + ' meninggalkan obrolan ' + str(queue["occupied"][uid]))
 			keyboard = ReplyKeyboardMarkup(keyboard=[['Search 🔍'],['Pengguna👤','MENU BOT✅']], resize_keyboard=True, one_time_keyboard=True)
 			bot.sendMessage(uid, "🔸 _Obrolan telah berakhir_", parse_mode='MarkDown', reply_markup=keyboard)
 			bot.sendMessage(queue["occupied"][uid], "🔹 _Pasangan kamu keluar dari obrolan_", parse_mode='MarkDown', reply_markup=keyboard)
 			del queue["occupied"][queue["occupied"][uid]]
 			del queue["occupied"][uid]
-
+			
 		elif text == 'MENU BOT✅':
 			keyboard = ReplyKeyboardMarkup(keyboard=[
 				['Info Profile 📌','Covid-19〽️'],['🔙 Main Menu']
 			], resize_keyboard=True, one_time_keyboard=True)
-			bot.sendMessage(uid, f"Selamat datang kak 🙊\nYuk Join di Grup @{GROUP} dan Channel @{CHANNEL}", reply_markup=keyboard)
+			bot.sendMessage(uid, "halo Yuk Channel @damnstoryy :)", reply_markup=keyboard)
 
 		elif text == 'Covid-19〽️':
 			web = requests.get('https://www.worldometers.info/coronavirus/country/indonesia/')
@@ -177,6 +177,7 @@ def handle(update):
 			ouy = "*KASUS VIRUS COVID-19 DI INDONESIA 🇮🇩*\n\nTerpapar Virus : {} Orang\nMeninggal : {} Orang\nSembuh : {} Orang".format(dataweb[0].span.text,dataweb[1].span.text,dataweb[2].span.text)
 			bot.sendMessage(uid, ouy, parse_mode='MarkDown')
 			
+
 		elif text == '🔙 Main Menu':
 			keyboard = ReplyKeyboardMarkup(keyboard=[['Search 🔍'],['Pengguna👤','MENU BOT✅']], resize_keyboard=True, one_time_keyboard=True)
 			bot.sendMessage(uid, "_🔄 Kembali_", parse_mode='MarkDown', disable_web_page_preview=True, reply_markup=keyboard)
@@ -189,7 +190,7 @@ def handle(update):
 			del queue["occupied"][uid] 
 			if not uid in queue["occupied"]:
 				key = ReplyKeyboardRemove()
-				bot.sendMessage(uid, '_Mencari pasangan baru kamu.. tunggu sebentar_',parse_mode="MarkDown" ,reply_markup=key)
+				bot.sendMessage(uid, '_Mencari lawan bicara lainnya..._',parse_mode="MarkDown" ,reply_markup=key)
 				print("[SB] " + str(uid) + " Join ke obrolan") 
 				queue["free"].append(uid)
 		
